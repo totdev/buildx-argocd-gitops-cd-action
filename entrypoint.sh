@@ -30,7 +30,7 @@ EOF
 
 export CONTEXT="$CONTEXT_PATH"
 export DOCKERFILE="--file $CONTEXT_PATH/Dockerfile"
-export DESTINATION="--tag igrowdigital/test"
+export DESTINATION="--tag ${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
 echo "$ARGS"
