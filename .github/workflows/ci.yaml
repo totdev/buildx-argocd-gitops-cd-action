@@ -1,0 +1,20 @@
+name: CI
+on: push
+
+jobs:
+  docker:
+    runs-on: self-hosted
+    name: Build docker image
+    steps:
+      - uses: actions/checkout@master
+      - name: Test
+        uses: githubanotaai/kaniko-argocd-gitops-action@master
+        with:
+          image: igrowdigital/test
+          registry_user: ${{ secrets.DOCKERHUB_USERNAME }}
+          deployment_repo: ${{ secrets.DEPLOYMENT_REPO }}
+          deployment_repo_token: ${{ secrets.DEPLOYMENT_REPO_TOKEN }}
+          registry_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          environment: production
+          values_yaml_image_tag_key: image.tag
+          context_path: test

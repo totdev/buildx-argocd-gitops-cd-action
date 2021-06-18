@@ -1,0 +1,43 @@
+name: 'ArgoCD Continuous Deployment'
+description: ''
+branding:
+  icon: anchor
+  color: orange
+inputs:
+  image:
+    description: 'Image name (repo/name)'
+    required: true
+  image_tag:
+    description: 'Image tag'
+    required: true
+    default: latest
+  deployment_repo:
+    description: 'Deployment repository'
+    required: true
+  deployment_repo_token:
+    description: 'Deployment repository token'
+    required: true
+  registry_user:
+    description: 'Deployment repository'
+    required: true
+  registry_password:
+    description: 'Deployment repository'
+    required: true
+  environment:
+    description: 'Deployment environment'
+    required: true
+  values_yaml_image_tag_key:
+    description: 'Image tag key in values.yaml'
+    required: true
+    default: 'image.tag'
+  context_path:
+    description: 'Context Path'
+    required: true
+    default: '.'
+# outputs:
+#   random-number:
+#     description: "Random number"
+#     value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "docker"
+  image: "Dockerfile"
