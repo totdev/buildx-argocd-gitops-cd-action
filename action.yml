@@ -4,6 +4,9 @@ branding:
   icon: anchor
   color: orange
 inputs:
+  application:
+    description: Application name on ArgoCD catalog
+    required: true
   image:
     description: 'Image name (repo/name)'
     required: true
