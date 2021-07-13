@@ -37,6 +37,10 @@ inputs:
     description: 'Context Path'
     required: true
     default: '.'
+  dockerfile:
+    description: 'Dockerfile name'
+    required: true
+    default: 'Dockerfile'
 # outputs:
 #   random-number:
 #     description: "Random number"

@@ -27,7 +27,7 @@ cat <<EOF >$HOME/.docker/config.json
 EOF
 
 export CONTEXT="$CONTEXT_PATH"
-export DOCKERFILE="--file $CONTEXT_PATH/Dockerfile"
+export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
 export DESTINATION="--tag ${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
