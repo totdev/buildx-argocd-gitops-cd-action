@@ -40,17 +40,17 @@ buildx build $ARGS
 echo "Cloning deployment repo"
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
-export VALUES_YAML=/deployment-repo/applications/$APPLICATION/$ENVIRONMENT/values.yaml
-export VALUES_YAML_IMAGE_TAG_KEY=${INPUT_VALUES_YAML_IMAGE_TAG_KEY}
+export YAML_FILE=/deployment-repo/applications/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
+export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 echo "ENVIRONMENT: $ENVIRONMENT"
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo
-yq w -i ${VALUES_YAML} ${VALUES_YAML_IMAGE_TAG_KEY} ${IMAGE_TAG}
+yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}
 
 cd /deployment-repo
 git config --local user.email "actions@github.com"
 git config --local user.name "GitHub Actions"
-git add "${VALUES_YAML}"
+git add "${YAML_FILE}"
 git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
 git push
