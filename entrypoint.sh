@@ -3,8 +3,9 @@
 export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
 export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
+export REGISTRY="10.228.0.240:5000"
 
-export REGISTRY_USER=${INPUT_REGISTRY_USER:-$GITHUB_REPOSITORY_OWNER}
+export REGISTRY_USER="docker"
 export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD:-$GITHUB_TOKEN}
 export DOCKERHUB_AUTH="$(echo -n $REGISTRY_USER:$REGISTRY_PASSWORD | base64)"
 export CONTEXT_PATH=${INPUT_CONTEXT_PATH}
@@ -18,8 +19,9 @@ mkdir -p $HOME/.docker/
 
 cat <<EOF >$HOME/.docker/config.json
 {
+        "insecure-registries" : ["$REGISTRY"]
         "auths": {
-                "https://index.docker.io/v1/": {
+                "$REGISTRY": {
                         "auth": "${DOCKERHUB_AUTH}"
                 }
         }
@@ -28,7 +30,7 @@ EOF
 
 export CONTEXT="$CONTEXT_PATH"
 export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
-export DESTINATION="--tag ${IMAGE}:${IMAGE_TAG}"
+export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
 echo "$ARGS"
