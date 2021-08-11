@@ -8,8 +8,9 @@ inputs:
     description: Application name on ArgoCD catalog
     required: true
   image:
-    description: 'Image name (repo/name)'
-    required: true
+    description: 'Image name (repo/name)'gith
+    required: false
+    default: ${{ github.repository.fullname }}
   image_tag:
     description: 'Image tag'
     required: true
