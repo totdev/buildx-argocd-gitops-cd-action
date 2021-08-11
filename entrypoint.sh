@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY_OWNER/$GITHUB_REPOSITORY"}
+export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
 export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
 
