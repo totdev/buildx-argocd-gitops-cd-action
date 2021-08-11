@@ -6,12 +6,13 @@ export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
 export REGISTRY="10.228.0.240:5000"
 
 export REGISTRY_USER="docker"
-export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD:-$GITHUB_TOKEN}
+export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD}
 export DOCKERHUB_AUTH="$(echo -n $REGISTRY_USER:$REGISTRY_PASSWORD | base64)"
+export REGISTRY_AUTH="ZG9ja2VyOnF2a1JlbGp0ZkVVMEd0dW0ybkRKcGdPVm51bWtWNUc0NUVrWUg5ZVQ3NDg="
 export CONTEXT_PATH=${INPUT_CONTEXT_PATH}
 
 export DEPLOYMENT_REPO=${INPUT_DEPLOYMENT_REPO}
-export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN}
+export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN:-"$GITHUB_TOKEN"}
 
 export EXTRA_ARGS=${INPUT_EXTRA_ARGS}
 
@@ -22,7 +23,7 @@ cat <<EOF >$HOME/.docker/config.json
         "insecure-registries" : ["$REGISTRY"]
         "auths": {
                 "$REGISTRY": {
-                        "auth": "${DOCKERHUB_AUTH}"
+                        "auth": "${REGISTRY_AUTH}"
                 }
         }
 }
