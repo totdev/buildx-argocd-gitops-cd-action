@@ -6,12 +6,10 @@ branding:
 inputs:
   application:
     description: Application name on ArgoCD catalog
-    required: true
-    default: ${{ github.repository.name }}
+    required: false
   image:
     description: 'Image name (repo/name)'
-    required: true
-    default: ${{ github.repository.fullname }}
+    required: false
   image_tag:
     description: 'Image tag'
     required: true
