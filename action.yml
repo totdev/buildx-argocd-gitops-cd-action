@@ -7,9 +7,10 @@ inputs:
   application:
     description: Application name on ArgoCD catalog
     required: true
+    default: ${{ github.repository.name }}
   image:
-    description: 'Image name (repo/name)'gith
-    required: false
+    description: 'Image name (repo/name)'
+    required: true
     default: ${{ github.repository.fullname }}
   image_tag:
     description: 'Image tag'
@@ -30,10 +31,14 @@ inputs:
   environment:
     description: 'Deployment environment'
     required: true
-  values_yaml_image_tag_key:
+  yaml_file:
+    description: 'Yaml that contains image tag info to be changed'
+    required: false
+    default: 'kustomization.yaml'
+  yaml_file_image_tag_key:
     description: 'Image tag key in values.yaml'
     required: true
-    default: 'image.tag'
+    default: 'images.0.newTag'
   context_path:
     description: 'Context Path'
     required: true
