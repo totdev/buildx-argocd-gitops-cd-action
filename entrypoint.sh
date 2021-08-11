@@ -35,7 +35,7 @@ echo "$ARGS"
 
 echo "Building image"
 
-buildx build $ARGS
+buildx build $ARGS || exit 1
 
 echo "Cloning deployment repo"
 
@@ -46,7 +46,7 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 echo "ENVIRONMENT: $ENVIRONMENT"
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo
-yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}
+yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
 cd /deployment-repo
 git config --local user.email "actions@github.com"
