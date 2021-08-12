@@ -21,13 +21,10 @@ mkdir -p $HOME/.docker/
 cat <<EOF >$HOME/.docker/config.json
 {
         "insecure-registries" : ["$REGISTRY"],
-        "auths": {
-                "$REGISTRY": {
-                        "auth": "${REGISTRY_AUTH}"
-                }
-        }
 }
 EOF
+
+echo -n "$REGISTRY_PASSWORD" | docker login "$REGISTRY" -u docker --password-stdin
 
 export CONTEXT="$CONTEXT_PATH"
 export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
