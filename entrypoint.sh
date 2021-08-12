@@ -8,7 +8,6 @@ export REGISTRY="10.228.0.240:5000"
 export REGISTRY_USER="docker"
 export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD}
 export DOCKERHUB_AUTH="$(echo -n $REGISTRY_USER:$REGISTRY_PASSWORD | base64)"
-export REGISTRY_AUTH="ZG9ja2VyOnF2a1JlbGp0ZkVVMEd0dW0ybkRKcGdPVm51bWtWNUc0NUVrWUg5ZVQ3NDg="
 export CONTEXT_PATH=${INPUT_CONTEXT_PATH}
 
 export DEPLOYMENT_REPO=${INPUT_DEPLOYMENT_REPO}
@@ -21,10 +20,15 @@ mkdir -p $HOME/.docker/
 cat <<EOF >$HOME/.docker/config.json
 {
         "insecure-registries" : ["$REGISTRY"],
+        "auths": {
+                "$REGISTRY": {
+                        "auth": "$DOCKERHUB_AUTH"
+                }
+        }
 }
 EOF
 
-echo -n "$REGISTRY_PASSWORD" | docker login "$REGISTRY" -u docker --password-stdin
+#echo -n "$REGISTRY_PASSWORD" | docker login "$REGISTRY" -u docker --password-stdin
 
 export CONTEXT="$CONTEXT_PATH"
 export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
