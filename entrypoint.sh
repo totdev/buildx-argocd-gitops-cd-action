@@ -1,11 +1,14 @@
 #!/bin/bash
 
 export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
+
+echo "IMAGE: $IMAGE"
+
+
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
 export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
 export REGISTRY="10.228.0.240:5000"
 
-echo "IMAGE: $IMAGE"
 
 export REGISTRY_USER="docker"
 export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD}
