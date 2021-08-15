@@ -28,14 +28,14 @@ cat <<EOF >$HOME/.docker/config.json
 }
 EOF
 
-echo -n "$REGISTRY_PASSWORD" | docker login "$REGISTRY" -u docker --password-stdin
+#echo -n "$REGISTRY_PASSWORD" | docker login "$REGISTRY" -u docker --password-stdin
 
 export CONTEXT="$CONTEXT_PATH"
 export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
 export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
-echo "$ARGS"
+#echo "$ARGS"
 
 echo "Building image"
 
@@ -50,6 +50,11 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 echo "ENVIRONMENT: $ENVIRONMENT"
 
 echo "DEPLOYMENT REPO: $DEPLOYMENT_REPO"
+
+echo "DEPLOYMENT REPO TOKEN: $DEPLOYMENT_REPO_TOKEN"
+
+echo "$ARGS"
+
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
