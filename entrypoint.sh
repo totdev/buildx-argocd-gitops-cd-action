@@ -3,7 +3,6 @@
 export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
 
 echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
-echo "GITHUB_TOKEN: $GITHUB_TOKEN"
 
 
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
@@ -18,11 +17,13 @@ export CONTEXT_PATH=${INPUT_CONTEXT_PATH}
 export DEPLOYMENT_REPO=${INPUT_DEPLOYMENT_REPO}
 #export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN:-"$GITHUB_TOKEN"}
 
-export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN}
-
-
 echo "DEPLOYMENT_REPO: $DEPLOYMENT_REPO"
+
+
+export DEPLOYMENT_REPO_TOKEN="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"
+
 echo "DEPLOYMENT_REPO_TOKEN: $DEPLOYMENT_REPO_TOKEN"
+
 
 # APPLICATIONS_REPO_TOKEN
 # deployment_repo_token
@@ -63,33 +64,18 @@ export ENVIRONMENT=${INPUT_ENVIRONMENT}
 export YAML_FILE=/deployment-repo/applications/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
 export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
-echo "ENVIRONMENT: $ENVIRONMENT"
 
-echo "DEPLOYMENT REPO: $DEPLOYMENT_REPO"
-
-echo "DEPLOYMENT REPO TOKEN: $DEPLOYMENT_REPO_TOKEN"
-
-echo "ENVIRONMENT: $ENVIRONMENT"
-
-echo "YAML_FILE: $YAML_FILE"
-
-echo "YAML_FILE_IMAGE_TAG_KEY: $YAML_FILE_IMAGE_TAG_KEY"
-
-echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo"
-
-echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
-
+#echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo"
+#echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
 #mkdir -p /deployment-repo
 
-git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 
+git clone https://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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
-
-
-cd /deployment-repo
 
 #applications/deployments/n381-api/production/kustomization.yaml
 
+cd /deployment-repo
 git config --local user.email "actions@github.com"
 git config --local user.name "GitHub Actions"
 git add "${YAML_FILE}"
