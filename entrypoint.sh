@@ -67,10 +67,10 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 
 #mv $HOME/deployment-repo $HOME/deployment-repo_old
-rmdir $HOME/deployment-repo
+#rmdir $HOME/deployment-repo
 mkdir -p $HOME/deployment-repo
-#cd $HOME/deployment-repo
-git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO $HOME/deployment-repo || exit 1
+cd $HOME/deployment-repo
+git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO || exit 1
 
 
 echo "YAML_FILE: $YAML_FILE"
