@@ -51,8 +51,8 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
-yq w -i ${YAML_FILE} images.name deployc3/auth-api || exit 1
-yq w -i ${YAML_FILE} images.newTag ${IMAGE_TAG} || exit 1
+#yq w -i ${YAML_FILE} images.name deployc3/auth-api || exit 1
+yq w -i ${YAML_FILE} images[0].newTag ${IMAGE_TAG} || exit 1
 #yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
 #echo "YAML_FILE: $YAML_FILE"
