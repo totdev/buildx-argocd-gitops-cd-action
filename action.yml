@@ -20,7 +20,8 @@ inputs:
     default: 'totdev/applications'
   deployment_repo_token:
     description: 'Deployment repository token'
-    required: false
+    required: true
+    default: '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'    
   registry_user:
     description: 'Deployment repository'
     required: false
