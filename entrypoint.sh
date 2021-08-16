@@ -68,7 +68,9 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 #mv $HOME/deployment-repo $HOME/deployment-repo_old
 
-git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO $HOME/deployment-repo || exit 1
+mkdir -p $HOME/deployment-repo
+cd $HOME/deployment-repo
+git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO . || exit 1
 
 
 echo "YAML_FILE: $YAML_FILE"
@@ -79,7 +81,7 @@ echo "IMAGE_TAG: $IMAGE_TAG"
 
 #applications/deployments/n381-api/production/kustomization.yaml
 
-cd $HOME/deployment-repo
+#cd $HOME/deployment-repo
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 git config --local user.email "actions@github.com"
 git config --local user.name "GitHub Actions"
