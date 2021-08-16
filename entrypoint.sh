@@ -66,7 +66,7 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 #echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
 #mkdir -p /deployment-repo
 
-git clone https://deployc3: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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
+git clone https://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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
