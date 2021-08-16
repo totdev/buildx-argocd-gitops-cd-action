@@ -19,6 +19,7 @@ export DEPLOYMENT_REPO=${INPUT_DEPLOYMENT_REPO}
 export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN:-"$GITHUB_TOKEN"}
 
 echo "DEPLOYMENT_REPO: $DEPLOYMENT_REPO"
+echo "DEPLOYMENT_REPO_TOKEN: $DEPLOYMENT_REPO_TOKEN"
 
 # APPLICATIONS_REPO_TOKEN
 # deployment_repo_token
@@ -71,13 +72,13 @@ echo "YAML_FILE: $YAML_FILE"
 
 echo "YAML_FILE_IMAGE_TAG_KEY: $YAML_FILE_IMAGE_TAG_KEY"
 
-echo "git clone https://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@github.com/$DEPLOYMENT_REPO /deployment-repo"
+echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo"
 
 echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
 
 #mkdir -p /deployment-repo
 
-git clone https://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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
+git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
