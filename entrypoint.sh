@@ -58,7 +58,7 @@ buildx build $ARGS || exit 1
 echo "Cloning deployment repo"
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
-export YAML_FILE=$HOME/deployment-repo/applications/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
+export YAML_FILE=applications/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
 export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 
