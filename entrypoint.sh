@@ -68,9 +68,7 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 #echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo"
 #echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
 #mkdir -p /deployment-repo
-
-
-git clone https://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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
+git clone https://x-access-token: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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
 #applications/deployments/n381-api/production/kustomization.yaml
