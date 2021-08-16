@@ -23,7 +23,7 @@ inputs:
     required: true
   registry_user:
     description: 'Deployment repository'
-    #default: 'deployc3'
+    default: 'deployc3'
     required: true
   registry_password:
     description: 'Deployment repository'
