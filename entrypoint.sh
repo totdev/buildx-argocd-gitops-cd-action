@@ -68,14 +68,16 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 #echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo"
 #echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
 #mkdir -p /deployment-repo
-git clone https://x-access-token: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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
+
+git clone https://deployc3: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@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
+
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
 #applications/deployments/n381-api/production/kustomization.yaml
 
 cd /deployment-repo
-git config --local user.email "actions@github.com"
-git config --local user.name "GitHub Actions"
-git add "${YAML_FILE}"
-git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
-git push
+#git config --local user.email "actions@github.com"
+#git config --local user.name "GitHub Actions"
+#git add "${YAML_FILE}"
+#git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
+#git push
