@@ -58,7 +58,7 @@ buildx build $ARGS || exit 1
 echo "Cloning deployment repo"
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
-export YAML_FILE=./applications/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
+export YAML_FILE=$HOME/deployment-repo/applications/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
 export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 
@@ -66,8 +66,8 @@ export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 #echo "yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG}"
 
 
-#mkdir -p /deployment-repo
-git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
+mkdir -p $HOME/deployment-repo
+git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO $HOME/deployment-repo || exit 1
 
 
 echo "YAML_FILE: $YAML_FILE"
@@ -78,7 +78,7 @@ echo "IMAGE_TAG: $IMAGE_TAG"
 
 #applications/deployments/n381-api/production/kustomization.yaml
 
-cd /deployment-repo
+cd $HOME/deployment-repo
 yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 git config --local user.email "actions@github.com"
 git config --local user.name "GitHub Actions"
