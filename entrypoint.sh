@@ -74,7 +74,7 @@ echo "YAML_FILE: $YAML_FILE"
 echo "YAML_FILE_IMAGE_TAG_KEY: $YAML_FILE_IMAGE_TAG_KEY"
 echo "IMAGE_TAG: $IMAGE_TAG"
 
-yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
+#yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
 #applications/deployments/n381-api/production/kustomization.yaml
 
