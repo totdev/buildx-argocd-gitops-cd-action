@@ -20,7 +20,7 @@ inputs:
     default: 'totdev/applications'
   deployment_repo_token:
     description: 'Deployment repository token'
-    efault: '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'
+    default: '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'
     required: true
   registry_user:
     description: 'Deployment repository'
