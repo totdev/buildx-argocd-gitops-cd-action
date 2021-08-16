@@ -23,7 +23,7 @@ inputs:
     required: true
   registry_user:
     description: 'Deployment repository'
-    required: false
+    required: true
   registry_password:
     description: 'Deployment repository'
     required: true
