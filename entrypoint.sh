@@ -30,8 +30,8 @@ cat <<EOF >$HOME/.docker/config.json
 }
 EOF
 
-echo -n "$REGISTRY" 
-echo -n "$DOCKERHUB_AUTH" 
+#echo -n "$REGISTRY" 
+#echo -n "$DOCKERHUB_AUTH" 
 
 #| docker login "$REGISTRY" -u docker --password-stdin
 
@@ -40,7 +40,7 @@ export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
 export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
-echo "$ARGS"
+#echo "$ARGS"
 
 echo "Building image"
 
