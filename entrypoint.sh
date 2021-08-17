@@ -44,7 +44,7 @@ echo "$ARGS"
 
 echo "Building image"
 
-#buildx build $ARGS || exit 1
+buildx build $ARGS || exit 1
 
 echo "Cloning deployment repo"
 
