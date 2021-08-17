@@ -68,6 +68,11 @@ export ENVIRONMENT=${INPUT_ENVIRONMENT}
 export YAML_FILE=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
 export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
+echo "Building git"
+
+
+echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo "
+
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 #yq w -i ${YAML_FILE} images.name deployc3/auth-api || exit 1
@@ -78,10 +83,7 @@ yq w -i ${YAML_FILE} images[0].newTag ${IMAGE_TAG} || exit 1
 #  - name: deployc3/auth-api
 #    newTag: d9ffc539f48803aadf938c27cf41151bd9b71548
 
-echo "Building git"
 
-
-echo "git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo "
 cd /deployment-repo
 #git config --local user.email "actions@github.com"
 #git config --local user.name "GitHub Actions"
