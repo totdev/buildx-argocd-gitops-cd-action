@@ -20,11 +20,9 @@ inputs:
     default: 'totdev/applications'
   deployment_repo_token:
     description: 'Deployment repository token'
-    required: true
-    #default: ${{ secrets.APPLICATIONS_REPO_TOKEN }}
+    required: false
   registry_user:
     description: 'Deployment repository'
-    #default: 'deployc3'
     required: true
   registry_password:
     description: 'Deployment repository'
