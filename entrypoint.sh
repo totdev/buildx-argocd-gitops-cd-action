@@ -33,7 +33,7 @@ export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
 export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
-#echo "$ARGS"
+echo "$ARGS"
 
 echo "Building image"
 
