@@ -41,7 +41,7 @@ echo "Building image"
 
 buildx build $ARGS || exit 1
 
-echo "REpositoty"
+echo "Repositoty"
 echo "$REGISTRY"/"$IMAGE"
 
 # ${REGISTRY}/${IMAGE}
@@ -53,7 +53,7 @@ export YAML_FILE=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_
 export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
-#yq w -i ${YAML_FILE} images.name deployc3/auth-api || exit 1
+yq w -i ${YAML_FILE} images.name ${REGISTRY}/${IMAGE} || exit 1
 yq w -i ${YAML_FILE} images[0].newTag ${IMAGE_TAG} || exit 1
 #yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
@@ -62,9 +62,9 @@ yq w -i ${YAML_FILE} images[0].newTag ${IMAGE_TAG} || exit 1
 #    newTag: d9ffc539f48803aadf938c27cf41151bd9b71548
 
 cd /deployment-repo
-#git config --local user.email "actions@github.com"
-#git config --local user.name "GitHub Actions"
-#git add "${YAML_FILE}"
-#git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
-#git push
+git config --local user.email "actions@github.com"
+git config --local user.name "GitHub Actions"
+git add "${YAML_FILE}"
+git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
+git push
 ##rm -rf /deployment-repo
