@@ -41,7 +41,12 @@ echo "Building image"
 
 buildx build $ARGS || exit 1
 
-echo "Cloning deployment repo"
+echo "REpositoty"
+echo "$REGISTRY"/"$IMAGE"
+
+# ${REGISTRY}/${IMAGE}
+
+
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
 export YAML_FILE=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
