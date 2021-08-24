@@ -62,4 +62,4 @@ cd /deployment-repo
 #git add "${YAML_FILE}"
 #git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
 #git push
-rm -rf /deployment-repo
+##rm -rf /deployment-repo
