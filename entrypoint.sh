@@ -4,9 +4,9 @@ export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
 
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
 export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
-#export REGISTRY="10.228.0.240:5000"
-export REGISTRY="harbor.cloud2.c3.furg.br"
 
+export REGISTRY="harbor.cloud2.c3.furg.br"
+export IS_OPENFAAS_FN=${INPUT_IS_OPENFAAS_FN}
 
 export REGISTRY_USER="docker"
 export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD}
@@ -30,23 +30,31 @@ cat <<EOF >$HOME/.docker/config.json
 }
 EOF
 
-export CONTEXT="$CONTEXT_PATH"
+
+
+
+echo "$ARGS"
+
+if [ "$IS_OPENFAAS_FN" == "true" ]; then
+  FUNCTION_NAME="$(yq eval '.functions | keys' function.yml | awk '{print $2}')"
+  echo "Building OpenFAAS Function"
+  faas-cli build -f "function.yml" --shrinkwrap || exit 1
+  export CONTEXT="./build/$FUNCTION_NAME"
+else
+  export CONTEXT="$CONTEXT_PATH"
+
+fi
+
 export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
 export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
 
-echo "$ARGS"
-
 echo "Building image"
-
 buildx build $ARGS || exit 1
 
 echo "Repositoty"
 echo "$REGISTRY"/"$IMAGE"
-
 # ${REGISTRY}/${IMAGE}
-
-
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
 export YAML_FILE=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
