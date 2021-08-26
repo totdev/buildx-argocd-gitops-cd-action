@@ -53,7 +53,7 @@ export YAML_FILE=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_
 export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
 
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
-yq w -i ${YAML_FILE} images[0].name ${REGISTRY}/${IMAGE} || exit 1
+yq w -i ${YAML_FILE} images[0].newName ${REGISTRY}/${IMAGE} || exit 1
 yq w -i ${YAML_FILE} images[0].newTag ${IMAGE_TAG} || exit 1
 #yq w -i ${YAML_FILE} ${YAML_FILE_IMAGE_TAG_KEY} ${IMAGE_TAG} || exit 1
 
