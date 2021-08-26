@@ -8,30 +8,30 @@ inputs:
     description: Application name on ArgoCD catalog
     required: false
   image:
-    description: 'Image name (repo/name)'
+    description: Image name (repo/name)
     required: false
   image_tag:
-    description: 'Image tag'
+    description: Image tag
     required: true
     default: latest
   deployment_repo:
-    description: 'Deployment repository'
+    description: Deployment repository
     required: true
     default: 'totdev/applications'
   deployment_repo_token:
-    description: 'Deployment repository token'
+    description: Deployment repository token
     required: true
   registry_user:
-    description: 'Deployment repository'
+    description: Deployment repository
     required: true
   registry_password:
-    description: 'Deployment repository'
+    description: Deployment repository
     required: true
   environment:
-    description: 'Deployment environment'
+    description: Deployment environment
     required: true
   yaml_file:
-    description: 'Yaml that contains image tag info to be changed'
+    description: Yaml that contains image tag info to be changed
     required: false
     default: 'kustomization.yaml'
   yaml_file_image_tag_key:
@@ -39,21 +39,17 @@ inputs:
     required: true
     default: 'images.0.newTag'
   context_path:
-    description: 'Context Path'
+    description: Context Path (ignored if is_openfaas_fn) is true.
     required: true
     default: '.'
   dockerfile:
-    description: 'Dockerfile name'
+    description: Dockerfile name
     required: true
     default: 'Dockerfile'
   is_openfaas_fn:
     description: Set to "true" if this repo is an openfaas fn.
     required: true
     default: 'false'
-# outputs:
-#   random-number:
-#     description: "Random number"
-#     value: ${{ steps.random-number-generator.outputs.random-id }}
 runs:
   using: "docker"
   image: "Dockerfile"
