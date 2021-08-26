@@ -30,11 +30,6 @@ cat <<EOF >$HOME/.docker/config.json
 }
 EOF
 
-
-
-
-echo "$ARGS"
-
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
   FUNCTION_NAME="$(yq eval '.functions | keys' function.yml | awk '{print $2}')"
   echo "Building OpenFAAS Function"
@@ -48,6 +43,8 @@ fi
 export DOCKERFILE="--file $CONTEXT_PATH/${INPUT_DOCKERFILE}"
 export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
+
+echo "$ARGS"
 
 echo "Building image"
 buildx build $ARGS || exit 1
