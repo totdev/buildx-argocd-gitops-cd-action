@@ -46,6 +46,10 @@ inputs:
     description: 'Dockerfile name'
     required: true
     default: 'Dockerfile'
+  is_openfaas_fn:
+    description: Set to "true" if this repo is an openfaas fn.
+    required: true
+    default: 'false'
 # outputs:
 #   random-number:
 #     description: "Random number"
