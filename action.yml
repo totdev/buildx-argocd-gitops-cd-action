@@ -34,10 +34,6 @@ inputs:
     description: Yaml that contains image tag info to be changed
     required: false
     default: 'kustomization.yaml'
-  yaml_file_image_tag_key:
-    description: 'Image tag key in values.yaml'
-    required: true
-    default: 'images.0.newTag'
   context_path:
     description: Context Path (ignored if is_openfaas_fn) is true.
     required: true
