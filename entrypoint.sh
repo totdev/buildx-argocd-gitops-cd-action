@@ -43,7 +43,7 @@ fi
 echo "Context: $CONTEXT"
 
 export DOCKERFILE="--file $CONTEXT/${INPUT_DOCKERFILE}"
-echoo "Dockerfile: $DOCKERFILE"
+echo "Dockerfile: $DOCKERFILE"
 
 export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
 echo "Destination: $DESTINATION"
@@ -65,14 +65,14 @@ git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
   export IMAGEREPONAMETAG="${NEWNAME}/${NEWTAG}"
   export YAML_FILE="$YAML_FILE_BASE_PATH/image-patch.yaml"
-  yq eval -i '.[0].value = env(IMAGEREPONAMETAG)' image-patch.yaml || exit 1
+  echo "YAML file: $YAML_FILE"
+  yq eval -i '.[0].value = env(IMAGEREPONAMETAG)' "$YAML_FILE" || exit 1
 else
   export YAML_FILE="$YAML_FILE_BASE_PATH/kustomization.yaml"
-  yq eval -i '.images[0].newTag = env(NEWTAG)' kustomization.yaml || exit 1
-  yq eval -i '.images[0].newName = env(NEWNAME)' kustomization.yaml || exit 1  
+  echo "YAML file: $YAML_FILE"
+  yq eval -i '.images[0].newTag = env(NEWTAG)' "$YAML_FILE" || exit 1
+  yq eval -i '.images[0].newName = env(NEWNAME)' "$YAML_FILE" || exit 1  
 fi
-
-echo "YAML file: $YAML_FILE"
 
 #images:
 #  - name: deployc3/auth-api
