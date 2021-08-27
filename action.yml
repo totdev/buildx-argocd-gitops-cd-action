@@ -31,11 +31,11 @@ inputs:
     description: Deployment environment
     required: true
   yaml_file:
-    description: Yaml that contains image tag info to be changed
+    description: Yaml that contains image tag info to be changed (ignored if is_openfaas_fn is true).
     required: false
     default: 'kustomization.yaml'
   context_path:
-    description: Context Path (ignored if is_openfaas_fn) is true.
+    description: Context Path (ignored if is_openfaas_fn is true).
     required: true
     default: '.'
   dockerfile:
