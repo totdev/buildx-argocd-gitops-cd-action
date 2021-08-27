@@ -21,7 +21,7 @@ inputs:
   deployment_repo_token:
     description: Deployment repository token
     required: true
-    default: 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
+    #default: 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
   registry_user:
     description: Deployment repository
     required: true
