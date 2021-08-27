@@ -31,7 +31,7 @@ cat <<EOF >$HOME/.docker/config.json
 EOF
 
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
-  FUNCTION_NAME="$(yq '.functions | keys' function.yml | awk '{print $2}')"
+  FUNCTION_NAME="$(yq eval '.functions | keys' function.yml | awk '{print $2}')"
   echo "Building OpenFAAS Function"
   faas-cli build -f "function.yml" --shrinkwrap || exit 1
   export CONTEXT="./build/$FUNCTION_NAME"
