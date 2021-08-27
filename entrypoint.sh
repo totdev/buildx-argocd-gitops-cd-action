@@ -55,7 +55,7 @@ echo "Building image"
 buildx build $ARGS || exit 1
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
-export YAML_FILE_BASE_PATH=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
+export YAML_FILE_BASE_PATH=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT
 
 export NEWNAME="${REGISTRY}/${IMAGE}"
 export NEWTAG="${IMAGE_TAG}"
@@ -68,15 +68,11 @@ if [ "$IS_OPENFAAS_FN" == "true" ]; then
   echo "YAML file: $YAML_FILE"
   yq eval -i '.[0].value = env(IMAGEREPONAMETAG)' "$YAML_FILE" || exit 1
 else
-  export YAML_FILE="$YAML_FILE_BASE_PATH/kustomization.yaml"
+  export YAML_FILE="$YAML_FILE_BASE_PATH/${INPUT_YAML_FILE}"
   echo "YAML file: $YAML_FILE"
   yq eval -i '.images[0].newTag = env(NEWTAG)' "$YAML_FILE" || exit 1
   yq eval -i '.images[0].newName = env(NEWNAME)' "$YAML_FILE" || exit 1  
 fi
-
-#images:
-#  - name: deployc3/auth-api
-#    newTag: d9ffc539f48803aadf938c27cf41151bd9b71548
 
 cd /deployment-repo
 git config --local user.email "actions@github.com"
@@ -84,4 +80,3 @@ git config --local user.name "GitHub Actions"
 git add "${YAML_FILE}"
 git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
 git push
-##rm -rf /deployment-repo
