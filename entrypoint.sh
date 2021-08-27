@@ -33,24 +33,26 @@ EOF
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
   FUNCTION_NAME="$(yq eval '.functions | keys' function.yml | awk '{print $2}')"
   echo "Building OpenFAAS Function"
+  echo "Function name: $FUNCTION_NAME"
   faas-cli build -f "function.yml" --shrinkwrap || exit 1
   export CONTEXT="./build/$FUNCTION_NAME"
 else
   export CONTEXT="$CONTEXT_PATH"
 fi
 
-export DOCKERFILE="--file $CONTEXT/${INPUT_DOCKERFILE}"
-export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
-export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
+echo "Context: $CONTEXT"
 
-echo "$ARGS"
+export DOCKERFILE="--file $CONTEXT/${INPUT_DOCKERFILE}"
+echoo "Dockerfile: $DOCKERFILE"
+
+export DESTINATION="--tag ${REGISTRY}/${IMAGE}:${IMAGE_TAG}"
+echo "Destination: $DESTINATION"
+
+export ARGS="--push $DESTINATION $DOCKERFILE $CONTEXT"
+echo "Args: $ARGS"
 
 echo "Building image"
 buildx build $ARGS || exit 1
-
-echo "Repositoty"
-echo "$REGISTRY"/"$IMAGE"
-# ${REGISTRY}/${IMAGE}
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
 export YAML_FILE_BASE_PATH=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
@@ -70,6 +72,7 @@ else
   yq eval -i '.images[0].newName = env(NEWNAME)' kustomization.yaml || exit 1  
 fi
 
+echo "YAML file: $YAML_FILE"
 
 #images:
 #  - name: deployc3/auth-api
