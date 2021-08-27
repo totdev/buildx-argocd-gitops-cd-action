@@ -21,6 +21,7 @@ inputs:
   deployment_repo_token:
     description: Deployment repository token
     required: true
+    default: ${{ secrets.DEPLOYMENT_REPO_TOKEN }}
   registry_user:
     description: Deployment repository
     required: true
