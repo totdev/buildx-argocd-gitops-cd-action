@@ -63,7 +63,7 @@ export NEWTAG="${IMAGE_TAG}"
 git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment-repo || exit 1
 
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
-  export IMAGEREPONAMETAG="${NEWNAME}/${NEWTAG}"
+  export IMAGEREPONAMETAG="${NEWNAME}:${NEWTAG}"
   export YAML_FILE="$YAML_FILE_BASE_PATH/image-patch.yaml"
   echo "YAML file: $YAML_FILE"
   yq eval -i '.[0].value = env(IMAGEREPONAMETAG)' "$YAML_FILE" || exit 1
