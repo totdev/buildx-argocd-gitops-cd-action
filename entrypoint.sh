@@ -53,8 +53,7 @@ echo "$REGISTRY"/"$IMAGE"
 # ${REGISTRY}/${IMAGE}
 
 export ENVIRONMENT=${INPUT_ENVIRONMENT}
-export YAML_FILE=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
-export YAML_FILE_IMAGE_TAG_KEY=${INPUT_YAML_FILE_IMAGE_TAG_KEY}
+export YAML_FILE_BASE_PATH=/deployment-repo/deployments/$APPLICATION/$ENVIRONMENT/${INPUT_YAML_FILE}
 
 export NEWNAME="${REGISTRY}/${IMAGE}"
 export NEWTAG="${IMAGE_TAG}"
@@ -63,8 +62,10 @@ git clone https://$DEPLOYMENT_REPO_TOKEN@github.com/$DEPLOYMENT_REPO /deployment
 
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
   export IMAGEREPONAMETAG="${NEWNAME}/${NEWTAG}"
+  export YAML_FILE="$YAML_FILE_BASE_PATH/image-patch.yaml"
   yq eval -i '.[0].value = env(IMAGEREPONAMETAG)' image-patch.yaml || exit 1
 else
+  export YAML_FILE="$YAML_FILE_BASE_PATH/kustomization.yaml"
   yq eval -i '.images[0].newTag = env(NEWTAG)' kustomization.yaml || exit 1
   yq eval -i '.images[0].newName = env(NEWNAME)' kustomization.yaml || exit 1  
 fi
