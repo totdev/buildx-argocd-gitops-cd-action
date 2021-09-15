@@ -5,11 +5,11 @@ export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
 export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
 
-#export REGISTRY_USER="docker"
-#export REGISTRY="harbor.cloud2.c3.furg.br"
+export REGISTRY_USER="docker"
+export REGISTRY="harbor.cloud2.c3.furg.br"
 
-export REGISTRY_USER="buildx"
-export REGISTRY="servicos.c3.furg.br"
+#export REGISTRY_USER="buildx"
+#export REGISTRY="servicos.c3.furg.br"
 
 
 export IS_OPENFAAS_FN=${INPUT_IS_OPENFAAS_FN}
