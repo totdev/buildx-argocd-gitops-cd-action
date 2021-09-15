@@ -82,6 +82,6 @@ fi
 cd /deployment-repo
 git config --local user.email "actions@github.com"
 git config --local user.name "GitHub Actions"
-git add "${YAML_FILE}"
-git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
-git push
+#git add "${YAML_FILE}"
+#git commit -m "chore(${APPLICATION}): bumping ${ENVIRONMENT} image tag"
+#git push
