@@ -22,18 +22,18 @@ export DEPLOYMENT_REPO=${INPUT_DEPLOYMENT_REPO}
 export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN}
 export EXTRA_ARGS=${INPUT_EXTRA_ARGS}
 
-#mkdir -p $HOME/.docker/
-#
-#cat <<EOF >$HOME/.docker/config.json
-#{
+mkdir -p $HOME/.docker/
+
+cat <<EOF >$HOME/.docker/config.json
+{
 #        "insecure-registries" : ["$REGISTRY"],
-#        "auths": {
-#                "$REGISTRY": {
-#                        "auth": "$DOCKERHUB_AUTH"
-#                }
-#        }
-#}
-#EOF
+        "auths": {
+                "$REGISTRY": {
+                        "auth": "$DOCKERHUB_AUTH"
+                }
+        }
+}
+EOF
 
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
   FUNCTION_NAME="$(yq eval '.functions | keys' function.yml | awk '{print $2}')"
