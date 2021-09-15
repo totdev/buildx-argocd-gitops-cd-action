@@ -5,10 +5,15 @@ export IMAGE=${INPUT_IMAGE:-"$GITHUB_REPOSITORY"}
 export IMAGE_TAG="$(echo $INPUT_IMAGE_TAG | cut -c1-16 )"
 export APPLICATION=${INPUT_APPLICATION:-"$(echo $IMAGE | cut -d/ -f2)"}
 
-export REGISTRY="harbor.cloud2.c3.furg.br"
+#export REGISTRY_USER="docker"
+#export REGISTRY="harbor.cloud2.c3.furg.br"
+
+export REGISTRY_USER="buildx"
+export REGISTRY="servicos.c3.furg.br"
+
+
 export IS_OPENFAAS_FN=${INPUT_IS_OPENFAAS_FN}
 
-export REGISTRY_USER="docker"
 export REGISTRY_PASSWORD=${INPUT_REGISTRY_PASSWORD}
 export DOCKERHUB_AUTH="$(echo -n $REGISTRY_USER:$REGISTRY_PASSWORD | base64)"
 export CONTEXT_PATH=${INPUT_CONTEXT_PATH}
@@ -17,18 +22,18 @@ export DEPLOYMENT_REPO=${INPUT_DEPLOYMENT_REPO}
 export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN}
 export EXTRA_ARGS=${INPUT_EXTRA_ARGS}
 
-mkdir -p $HOME/.docker/
-
-cat <<EOF >$HOME/.docker/config.json
-{
-        "insecure-registries" : ["$REGISTRY"],
-        "auths": {
-                "$REGISTRY": {
-                        "auth": "$DOCKERHUB_AUTH"
-                }
-        }
-}
-EOF
+#mkdir -p $HOME/.docker/
+#
+#cat <<EOF >$HOME/.docker/config.json
+#{
+#        "insecure-registries" : ["$REGISTRY"],
+#        "auths": {
+#                "$REGISTRY": {
+#                        "auth": "$DOCKERHUB_AUTH"
+#                }
+#        }
+#}
+#EOF
 
 if [ "$IS_OPENFAAS_FN" == "true" ]; then
   FUNCTION_NAME="$(yq eval '.functions | keys' function.yml | awk '{print $2}')"
