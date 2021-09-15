@@ -23,10 +23,9 @@ export DEPLOYMENT_REPO_TOKEN=${INPUT_DEPLOYMENT_REPO_TOKEN}
 export EXTRA_ARGS=${INPUT_EXTRA_ARGS}
 
 mkdir -p $HOME/.docker/
-
+#        "insecure-registries" : ["$REGISTRY"],
 cat <<EOF >$HOME/.docker/config.json
 {
-#        "insecure-registries" : ["$REGISTRY"],
         "auths": {
                 "$REGISTRY": {
                         "auth": "$DOCKERHUB_AUTH"
