@@ -73,8 +73,9 @@ if [ "$IS_OPENFAAS_FN" == "true" ]; then
 else
   export YAML_FILE="$YAML_FILE_BASE_PATH/${INPUT_YAML_FILE}"
   echo "YAML file: $YAML_FILE"
+  yq eval -i '.images[0].name = env(NEWNAME)' "$YAML_FILE" || exit 1  
   yq eval -i '.images[0].newTag = env(NEWTAG)' "$YAML_FILE" || exit 1
-  yq eval -i '.images[0].newName = env(NEWNAME)' "$YAML_FILE" || exit 1  
+  
 fi
 
 cd /deployment-repo
